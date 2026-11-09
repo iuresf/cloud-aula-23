@@ -1,0 +1,11 @@
+linha_id;pedido_id;cliente_id;data_venda;valor;status
+001;P101;C1;01/10/2026;R$ 120,00; APROVADO
+002;P101;C1;2026-10-01;120,00;aprovado
+003;P102;C2;02/10/2026;200,00;aprovado
+004;P103;C1;03/10/2026;50,00;cancelado
+005;P104;C2;04/10/2026;abc;aprovado
+006;P105;C99;05/10/2026;80,00;aprovado
+007;P106;C3;06/10/2026;90,00;aprovado
+008;P107;C3;31/02/2026;70,00;aprovado
+009;;C1;07/10/2026;30,00;aprovado
+010;P108;C4;08/10/2026;100,00;aprovado

@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img" aria-labelledby="title desc">
+  <title id="title">Fluxo do Data Warehouse da Aula 23 na AWS</title>
+  <desc id="desc">S3 recebe o manifesto, EventBridge aciona Step Functions, que executa Glue e publica no Redshift; Glue grava evidências no S3.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#4b5563"/></marker>
+    <style>
+      .aws { fill:#fff; stroke:#ff9900; stroke-width:3 } .service { fill:#232f3e } .label { font:600 18px Arial,sans-serif; fill:#232f3e } .small { font:14px Arial,sans-serif; fill:#4b5563 } .line { stroke:#4b5563; stroke-width:3; fill:none; marker-end:url(#arrow) } .group { fill:#f7f8fa; stroke:#d5dbdb; stroke-width:2; rx:18 }
+    </style>
+  </defs>
+  <rect width="1200" height="520" fill="white"/>
+  <rect x="30" y="35" width="1140" height="440" class="group"/>
+  <text x="60" y="75" class="label">AWS Academy — pipeline de pedidos para Data Warehouse</text>
+  <text x="60" y="101" class="small">Dados versionados, execução orientada a eventos e publicação analítica</text>
+
+  <g transform="translate(70 175)">
+    <rect width="155" height="135" rx="14" class="aws"/><rect x="45" y="20" width="65" height="48" rx="4" class="service"/>
+    <path d="M55 32h45M55 44h45M55 56h45" stroke="white" stroke-width="3"/>
+    <text x="77" y="98" text-anchor="middle" class="label">Amazon S3</text><text x="77" y="119" text-anchor="middle" class="small">RAW + manifesto</text>
+  </g>
+  <g transform="translate(280 175)">
+    <rect width="155" height="135" rx="14" class="aws"/><circle cx="78" cy="44" r="28" class="service"/>
+    <circle cx="78" cy="44" r="8" fill="white"/><path d="M78 18v12M78 58v12M52 44h12M92 44h12" stroke="white" stroke-width="3"/>
+    <text x="77" y="98" text-anchor="middle" class="label">EventBridge</text><text x="77" y="119" text-anchor="middle" class="small">evento S3</text>
+  </g>
+  <g transform="translate(490 175)">
+    <rect width="155" height="135" rx="14" class="aws"/><path d="M50 25h54v18H78v20h27v18H50V63h10V43H50z" class="service"/>
+    <text x="77" y="98" text-anchor="middle" class="label">Step Functions</text><text x="77" y="119" text-anchor="middle" class="small">orquestração</text>
+  </g>
+  <g transform="translate(700 175)">
+    <rect width="155" height="135" rx="14" class="aws"/><path d="M47 24h59l-12 22 12 22H47l12-22z" class="service"/>
+    <path d="M65 35h23M65 46h23M65 57h23" stroke="white" stroke-width="3"/>
+    <text x="77" y="98" text-anchor="middle" class="label">AWS Glue</text><text x="77" y="119" text-anchor="middle" class="small">valida e transforma</text>
+  </g>
+  <g transform="translate(970 175)">
+    <rect width="155" height="135" rx="14" class="aws"/><ellipse cx="77" cy="28" rx="35" ry="12" class="service"/><path d="M42 28v38c0 16 70 16 70 0V28M42 47c0 16 70 16 70 0" fill="#232f3e" stroke="white" stroke-width="2"/>
+    <text x="77" y="98" text-anchor="middle" class="label">Amazon Redshift</text><text x="77" y="119" text-anchor="middle" class="small">DW: dimensões + fato</text>
+  </g>
+  <path d="M225 242H280M435 242H490M645 242H700M855 242H970" class="line"/>
+  <path d="M778 310v82H225v-82" class="line"/>
+  <text x="394" y="420" text-anchor="middle" class="small">S3: rejeitados, evidências e rastreabilidade do lote</text>
+  <text x="1094" y="420" text-anchor="middle" class="small">grão: uma linha por pedido</text>
+</svg>

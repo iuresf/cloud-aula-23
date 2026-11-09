@@ -1,0 +1,9 @@
+transacao_id;pedido_id;valor_pago;moeda;status_pagamento
+T1;P101;120,00;BRL;aprovado
+T2;P102;200,00;BRL;aprovado
+T3;P103;50,00;BRL;estornado
+T4;P104;60,00;BRL;aprovado
+T5;P105;80,00;BRL;aprovado
+T6;P106;95,00;BRL;aprovado
+T7;P107;70,00;BRL;aprovado
+T8;P108;100,00;BRL;aprovado

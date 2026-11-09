@@ -1,0 +1,8 @@
+{"order_id": "P101", "customer_id": "C1", "total": "120.00", "currency": "BRL"}
+{"order_id": "P102", "customer_id": "C2", "total": "200.00", "currency": "BRL"}
+{"order_id": "P103", "customer_id": "C1", "total": "50.00", "currency": "BRL"}
+{"order_id": "P104", "customer_id": "C2", "total": "60.00", "currency": "BRL"}
+{"order_id": "P105", "customer_id": "C99", "total": "80.00", "currency": "BRL"}
+{"order_id": "P106", "customer_id": "C3", "total": "90.00", "currency": "BRL"}
+{"order_id": "P107", "customer_id": "C3", "total": "70.00", "currency": "BRL"}
+{"order_id": "P108", "customer_id": "C4", "total": "100.00", "currency": "BRL"}
