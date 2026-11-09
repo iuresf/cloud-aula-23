@@ -1,43 +1,27 @@
-# Aula 23 — Data Warehouse na AWS (projeto independente)
+# Aula 23 — Data Warehouse na AWS Academy
 
-**Escopo:** S3 → EventBridge → Step Functions → AWS Glue Spark → Redshift Serverless.
-Esta pasta é autônoma; não depende das aulas 25 (Data Lake) e 26 (Lakehouse).
+Este repositório separa dados de entrada, código do pipeline e infraestrutura.
 
-## 1. Preparar
+| Diretório | Conteúdo |
+| --- | --- |
+| `Aula23_Materiais/` | arquivos sintéticos e materiais de integração/Glue. |
+| `warehouse/` | pipeline, SQL, envio de lotes, verificação e testes. |
+| `terraform/` | infraestrutura como código organizada em módulos. |
+| `docs/` | conceitos do modelo e fluxo de dados. |
 
-- Python >=3.10, Terraform >=1.5, AWS CLI e credenciais temporárias autorizadas.
-- Leia `01_warehouse/REQUISITOS_IAM.md`. Recursos dependem das permissões da conta; AWS Academy pode restringi-los.
-- Instale `python -m pip install -r requirements.txt` e execute `aws sts get-caller-identity`.
-- Os arquivos de laboratório estão em `dados/`; o próprio Terraform não faz upload desses dados.
-
-## 2. Provisionar
+Para validar a lógica sem criar recursos AWS:
 
 ```bash
-cd 01_warehouse
-cp terraform.tfvars.example terraform.tfvars
-# Ajuste VPC, subnets e roles existentes autorizadas.
-terraform init
-terraform validate
-terraform plan -out=aula23.tfplan
-terraform apply aula23.tfplan
-terraform output
-cd ..
+python3 warehouse/test_pipeline.py
 ```
 
-## 3. Publicar lotes
+Consulte [docs/CONCEITOS_WAREHOUSE.md](docs/CONCEITOS_WAREHOUSE.md) e o
+[guia do Terraform](terraform/README.md) antes do deploy.
 
-Leia `01_warehouse/README.md` e `README_cargas_005_007.md`.
-Envie `dados/inicial/pedidos/lote_001.csv` e `dados/inicial/pagamentos/lote_001.jsonl`, gere `ready.json` com `01_warehouse/preparar_manifesto.py`, e publique-o por último no S3.
-Após processamento, suba os lotes 002 a 007 em ordem. O `ready.json` dispara a Step Functions e o Glue; novos lotes não exigem novo `terraform apply`.
-O CSV de eventos de navegação foi retirado desta aula porque não pertence ao modelo de DW adotado.
+## Arquitetura implantada
 
-## 4. Verificar e encerrar
+![Fluxo AWS do Data Warehouse](docs/arquitetura-aws.svg)
 
-Use `01_warehouse/sql/04_consulta_redshift.sql` e `sql/07_verificar_incrementais.sql` no Query Editor v2. Opcional: `python runner.py verify`.
-Para remover apenas este laboratório: `cd 01_warehouse && terraform plan -destroy && terraform destroy`.
-**Cuidado:** o S3 usa `force_destroy=true` e apaga versões durante `destroy`. Não use em produção.
-
-## Limites
-
-Sem garantias de disponibilidade no AWS Academy. Nenhum recurso foi implantado por este pacote.
-As verificações documentadas são locais; o caminho integrado (S3/Glue/Redshift) precisa ser testado na conta de destino.
+O diagrama representa os serviços efetivamente usados no laboratório: Amazon
+S3, EventBridge, Step Functions, AWS Glue e Amazon Redshift. O catálogo Glue e
+a `LabRole` existem como componentes de suporte à execução.
