@@ -39,6 +39,7 @@ module "warehouse" {
   project_name              = var.project_name
   database_name             = var.redshift_database_name
   master_username           = var.redshift_master_username
+  bootstrap_sql_source      = "${path.root}/../warehouse/bootstrap.sql"
   subnet_ids                = data.aws_subnets.default.ids
   execution_role_arn        = local.execution_role_arn
   create_final_snapshot     = var.create_final_snapshot_on_destroy
@@ -47,14 +48,13 @@ module "warehouse" {
 }
 
 module "glue_etl" {
-  source               = "./modules/glue_etl"
-  project_name         = var.project_name
-  bucket_name          = module.landing.bucket_name
-  cluster_identifier   = module.warehouse.cluster_identifier
-  execution_role_arn   = local.execution_role_arn
-  pipeline_source      = "${path.root}/../warehouse/pipeline.py"
-  bootstrap_sql_source = "${path.root}/../warehouse/bootstrap.sql"
-  tags                 = local.tags
+  source             = "./modules/glue_etl"
+  project_name       = var.project_name
+  bucket_name        = module.landing.bucket_name
+  cluster_identifier = module.warehouse.cluster_identifier
+  execution_role_arn = local.execution_role_arn
+  pipeline_source    = "${path.root}/../warehouse/pipeline.py"
+  tags               = local.tags
 }
 
 module "orchestration" {

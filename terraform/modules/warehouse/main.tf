@@ -25,3 +25,15 @@ resource "aws_redshift_cluster" "warehouse" {
   final_snapshot_identifier  = var.create_final_snapshot ? var.final_snapshot_identifier : null
   tags                       = var.tags
 }
+
+# O schema e as tabelas fazem parte da infraestrutura. Este recurso so e
+# reexecutado quando o SQL estrutural for alterado.
+resource "aws_redshiftdata_statement" "bootstrap" {
+  cluster_identifier = aws_redshift_cluster.warehouse.cluster_identifier
+  database           = var.database_name
+  db_user            = var.master_username
+  statement_name     = "${var.project_name}-bootstrap"
+  sql                = file(var.bootstrap_sql_source)
+
+  depends_on = [aws_redshift_cluster.warehouse]
+}

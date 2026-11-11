@@ -1,6 +1,7 @@
 variable "project_name" { type = string }
 variable "database_name" { type = string }
 variable "master_username" { type = string }
+variable "bootstrap_sql_source" { type = string }
 variable "subnet_ids" { type = list(string) }
 variable "execution_role_arn" { type = string }
 variable "create_final_snapshot" { type = bool }

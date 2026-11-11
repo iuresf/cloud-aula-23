@@ -159,12 +159,7 @@ def main():
     put("evidencias/" + lote + "/qualidade.json", counts)
     if counts["pendentes"] and args.PUBLICAR_PARCIAL != "true":
         raise ValueError("Publicacao parcial exige politica didatica explicita")
-    # O bootstrap e as cargas sao lotes SQL separados. Cada batch e atomico.
-    sql = s3.get_object(Bucket=args.BUCKET, Key="scripts/bootstrap.sql")["Body"].read().decode()
-    sql = re.sub(r"--[^\n]*", "", sql)
-    bootstrap = [stmt.strip() for stmt in sql.split(";") if stmt.strip() and stmt.strip().lower() not in ("begin", "commit")]
     connection = {"ClusterIdentifier": args.CLUSTER, "Database": "aula23", "DbUser": "awsuser"}
-    wait_statement(api, api.batch_execute_statement(Sqls=bootstrap, **connection)["Id"])
     statement = api.batch_execute_statement(Sqls=load_sql(published, lote), **connection)["Id"]
     wait_statement(api, statement)
     put("evidencias/" + lote + "/publicacao.json", {"statement_id": statement, "status": "FINISHED", **counts})

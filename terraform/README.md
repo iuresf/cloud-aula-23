@@ -18,7 +18,8 @@ terraform/
 ```
 
 Os módulos não contêm regra de negócio: `../warehouse/pipeline.py` contém a
-transformação, `../warehouse/bootstrap.sql` prepara o banco e
+transformação, enquanto `../warehouse/bootstrap.sql` é aplicado pelo Terraform
+via Redshift Data API para preparar o banco e
 `../Aula23_Materiais/` contém as fontes sintéticas. Veja também o
 `../docs/CONCEITOS_WAREHOUSE.md`.
 
@@ -38,6 +39,7 @@ transformação, `../warehouse/bootstrap.sql` prepara o banco e
 Usa `LabRole` existente para Glue/Step Functions/EventBridge. Terraform usa a
 sessao `voclabs`. Nao cria roles ou chaves. A senha Redshift e efemera/write-only,
 sem persistir no estado. Consultas usam credenciais temporarias da Data API.
+O Glue somente transforma e carrega lotes; ele nao cria schema ou tabelas.
 
 ## Adaptacoes
 

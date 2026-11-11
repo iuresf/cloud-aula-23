@@ -13,7 +13,7 @@ output "execution_role_arn" {
 }
 
 output "redshift_bootstrap_sql" {
-  description = "SQL a executar via Redshift Data API apos um cluster/workgroup autorizado existir."
+  description = "SQL estrutural executado pelo Terraform via Redshift Data API."
   value       = "${path.root}/../warehouse/bootstrap.sql"
 }
 

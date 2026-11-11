@@ -5,13 +5,6 @@ resource "aws_s3_object" "pipeline" {
   source_hash = filesha256(var.pipeline_source)
 }
 
-resource "aws_s3_object" "bootstrap" {
-  bucket      = var.bucket_name
-  key         = "scripts/bootstrap.sql"
-  source      = var.bootstrap_sql_source
-  source_hash = filesha256(var.bootstrap_sql_source)
-}
-
 resource "aws_glue_job" "warehouse" {
   name         = "${var.project_name}-etl"
   role_arn     = var.execution_role_arn
